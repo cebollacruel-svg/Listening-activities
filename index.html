@@ -141,6 +141,58 @@
     margin-top: 8px;
     display: none;
   }
+
+  .tip-box {
+    background: #fef3c7;
+    border-left: 4px solid #F5A623;
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+    font-size: 13.5px;
+  }
+  .tip-box.purple { background: #ede9fe; border-left-color: #7c3aed; }
+
+  /* TRANSCRIPT */
+  .transcript-toggle {
+    margin-top: 12px;
+    background: #e5e7eb;
+    color: #374151;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .transcript-toggle:hover { background: #d1d5db; }
+  .transcript {
+    display: none;
+    margin-top: 12px;
+    background: #fafbfc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 18px;
+    font-size: 14.5px;
+    line-height: 1.7;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  .transcript.show { display: block; }
+  .transcript p { margin-bottom: 10px; }
+  .transcript p:last-child { margin-bottom: 0; }
+  .transcript .speaker { font-weight: 700; color: #1F4E79; }
+
+  .vocab-help {
+    margin-top: 12px;
+    background: #f0f4f9;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+  .vocab-help strong { color: #1F4E79; }
+  .vocab-help .vword { display: inline-block; margin-right: 14px; margin-bottom: 4px; }
+  .vocab-help .vword b { color: #1F4E79; }
+
   /* QUESTIONS */
   .question {
     margin-bottom: 18px;
@@ -309,6 +361,8 @@
     <p><strong>Step 2 - Main idea question:</strong> Answer one question about the general idea of the audio.</p>
     <p><strong>Step 3 - Listen again:</strong> Listen to the audio a second time. This time, pay attention to specific information: names, numbers, places, times, and key details.</p>
     <p><strong>Step 4 - Detail questions:</strong> Answer the questions about specific details. You can listen again as many times as you need.</p>
+    <p style="margin-top:8px;"><strong>Note:</strong> If you need extra help, you can open the transcript (the written text of the audio) under each player.</p>
+  </div>
 
   <div class="action-bar">
     <div class="progress-mini">
@@ -725,6 +779,9 @@ function renderListenings() {
           <div class="step-number">1</div>
           <div class="step-title">Listen to the audio</div>
         </div>
+        <div class="tip-box">
+          <strong>Tip:</strong> Listen to the whole audio once. Do not worry about every word. Try to understand the <strong>general idea</strong>: who is speaking and what the topic is.
+        </div>
         <div class="audio-wrap">
           <audio controls preload="none" onerror="showAudioMissing(${l.id})">
             <source src="${l.audio}" type="audio/mpeg">
@@ -734,6 +791,11 @@ function renderListenings() {
           <div class="audio-missing" id="audio-missing-${l.id}">
             The audio file was not found. Make sure <strong>${l.audio}</strong> is in the same folder as this page.
           </div>
+          <button class="transcript-toggle" onclick="toggleTranscript(${l.id})" id="tr-btn-${l.id}">Show transcript</button>
+          <div class="transcript" id="transcript-${l.id}">
+            ${l.transcript.map(([sp, txt]) => `<p>${sp ? `<span class="speaker">${escapeHtml(sp)}:</span> ` : ''}${escapeHtml(txt)}</p>`).join('')}
+          </div>
+        </div>
         <div class="vocab-help">
           <strong>Vocabulary help:</strong><br>
           ${l.vocab.map(([en, def]) => `<span class="vword"><b>${en}</b>: ${def}</span>`).join('')}
@@ -772,6 +834,9 @@ function renderListenings() {
           <div class="step-title">Listen to the audio again</div>
         </div>
         ${!detailsUnlocked ? '<div class="lock-msg">Answer the main idea question first to unlock this section.</div>' : `
+        <div class="tip-box purple">
+          <strong>Tip:</strong> Listen a second time. Pay attention to <strong>specific information</strong>: names, numbers, places, times, and key details. You can use the player above and listen as many times as you need.
+        </div>`}
       </div>
 
       <!-- STEP 4: DETAILS -->
@@ -814,6 +879,14 @@ function renderListenings() {
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
+
+function toggleTranscript(id) {
+  const tr = document.getElementById(`transcript-${id}`);
+  const btn = document.getElementById(`tr-btn-${id}`);
+  tr.classList.toggle('show');
+  btn.textContent = tr.classList.contains('show') ? 'Hide transcript' : 'Show transcript';
+}
+
 function showAudioMissing(id) {
   const el = document.getElementById(`audio-missing-${id}`);
   if (el) el.style.display = 'block';
