@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Listening Activities - English 11th - Roberth Jair Rivera Vargas</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: #f4f6f9;
+    color: #1f2937;
+    line-height: 1.6;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 20px 16px 60px; }
+
+  /* HEADER */
+  header.main {
+    background: linear-gradient(135deg, #1F4E79 0%, #2E75B6 100%);
+    color: white;
+    padding: 30px 24px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 12px rgba(31, 78, 121, 0.2);
+  }
+  header.main h1 { font-size: 26px; margin-bottom: 6px; font-weight: 700; }
+  header.main .subtitle { font-size: 15px; opacity: 0.95; }
+  header.main .student-info {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.3);
+    font-size: 14px;
+    display: flex; flex-wrap: wrap; gap: 8px 22px;
+  }
+
+  /* INSTRUCTIONS */
+  .instructions {
+    background: #FFF8E7;
+    border-left: 5px solid #F5A623;
+    padding: 16px 20px;
+    border-radius: 6px;
+    margin-bottom: 24px;
+    font-size: 14px;
+  }
+  .instructions h3 { color: #8a5800; font-size: 15px; margin-bottom: 8px; }
+  .instructions p { margin-bottom: 6px; }
+  .instructions strong { color: #1F4E79; }
+
+  /* TABS */
+  .tabs {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 20px;
+    background: white;
+    padding: 8px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  .tab-btn {
+    flex: 1 1 auto;
+    min-width: 140px;
+    padding: 10px 14px;
+    border: none;
+    background: transparent;
+    color: #4b5563;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.2s;
+    text-align: center;
+    font-family: inherit;
+  }
+  .tab-btn:hover { background: #f0f4f9; color: #1F4E79; }
+  .tab-btn.active { background: #1F4E79; color: white; }
+  .tab-btn.completed { border-left: 4px solid #10b981; }
+
+  /* CARD */
+  .listening-card {
+    display: none;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    overflow: hidden;
+  }
+  .listening-card.active { display: block; }
+  .listening-header {
+    padding: 20px 24px 16px;
+    border-bottom: 2px solid #f0f4f9;
+  }
+  .unit-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .unit-badge.unit-1 { background: #DCE6F2; color: #1F4E79; }
+  .unit-badge.unit-2 { background: #E2EFD9; color: #375623; }
+  .listening-header h2 { font-size: 20px; color: #111827; }
+
+  /* STEPS */
+  .step {
+    padding: 20px 24px;
+    border-bottom: 1px solid #f0f4f9;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 14px;
+  }
+  .step-number {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: #1F4E79; color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .step-number.locked { background: #9ca3af; }
+  .step-title { font-size: 17px; font-weight: 700; color: #111827; }
+
+  /* AUDIO PLAYER */
+  .audio-wrap {
+    background: #fafbfc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 18px 20px;
+  }
+  .audio-wrap audio { width: 100%; margin-bottom: 8px; }
+  .audio-note { font-size: 13px; color: #6b7280; }
+  .audio-missing {
+    background: #fef2f2;
+    border: 1px dashed #ef4444;
+    color: #991b1b;
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-top: 8px;
+    display: none;
+  }
+
+  .tip-box {
+    background: #fef3c7;
+    border-left: 4px solid #F5A623;
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin-bottom: 14px;
+    font-size: 13.5px;
+  }
+  .tip-box.purple { background: #ede9fe; border-left-color: #7c3aed; }
+
+  /* TRANSCRIPT */
+  .transcript-toggle {
+    margin-top: 12px;
+    background: #e5e7eb;
+    color: #374151;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .transcript-toggle:hover { background: #d1d5db; }
+  .transcript {
+    display: none;
+    margin-top: 12px;
+    background: #fafbfc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 18px;
+    font-size: 14.5px;
+    line-height: 1.7;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  .transcript.show { display: block; }
+  .transcript p { margin-bottom: 10px; }
+  .transcript p:last-child { margin-bottom: 0; }
+  .transcript .speaker { font-weight: 700; color: #1F4E79; }
+
+  .vocab-help {
+    margin-top: 12px;
+    background: #f0f4f9;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+  }
+  .vocab-help strong { color: #1F4E79; }
+  .vocab-help .vword { display: inline-block; margin-right: 14px; margin-bottom: 4px; }
+  .vocab-help .vword b { color: #1F4E79; }
+
+  /* QUESTIONS */
+  .question {
+    margin-bottom: 18px;
+    padding: 14px 16px;
+    background: #fafbfc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+  }
+  .question-text { font-weight: 600; margin-bottom: 10px; color: #111827; }
+  .question-text .qnum {
+    display: inline-block;
+    background: #1F4E79; color: white;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 12px;
+    line-height: 22px;
+    margin-right: 8px;
+  }
+  .options { display: flex; flex-direction: column; gap: 6px; }
+  .option {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 10px 12px;
+    border: 2px solid #e5e7eb;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: white;
+  }
+  .option:hover { border-color: #2E75B6; background: #f0f7fc; }
+  .option input[type="radio"] { margin-top: 3px; accent-color: #1F4E79; cursor: pointer; flex-shrink: 0; }
+  .option label { cursor: pointer; flex: 1; font-size: 14.5px; }
+  .option.selected { border-color: #1F4E79; background: #f0f7fc; }
+  .option.correct { border-color: #10b981; background: #ecfdf5; }
+  .option.incorrect { border-color: #ef4444; background: #fef2f2; }
+  .option.correct::after { content: "Correct"; color: #10b981; font-weight: 700; margin-left: auto; font-size: 12px; align-self: center; }
+  .option.incorrect::after { content: "Incorrect"; color: #ef4444; font-weight: 700; margin-left: auto; font-size: 12px; align-self: center; }
+
+  /* BUTTONS */
+  .btn {
+    padding: 11px 22px;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .btn-primary { background: #1F4E79; color: white; }
+  .btn-primary:hover { background: #163E5F; }
+  .btn-primary:disabled { background: #9ca3af; cursor: not-allowed; }
+  .btn-secondary { background: #e5e7eb; color: #374151; margin-left: 8px; }
+  .btn-secondary:hover { background: #d1d5db; }
+  .btn-row { margin-top: 14px; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+
+  /* FEEDBACK */
+  .feedback {
+    margin-top: 12px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    display: none;
+  }
+  .feedback.show { display: block; }
+  .feedback.correct { background: #ecfdf5; border-left: 4px solid #10b981; color: #065f46; }
+  .feedback.incorrect { background: #fef2f2; border-left: 4px solid #ef4444; color: #991b1b; }
+  .feedback strong { display: block; margin-bottom: 4px; }
+
+  .score-display {
+    background: linear-gradient(135deg, #1F4E79, #2E75B6);
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 16px;
+    display: none;
+  }
+  .score-display.show { display: block; }
+  .score-display .score-number { font-size: 36px; font-weight: 700; margin: 8px 0; }
+  .score-display .score-label { font-size: 13px; opacity: 0.9; }
+  .score-display .score-msg { font-size: 14px; margin-top: 8px; font-style: italic; }
+
+  /* LOCKED */
+  .step.locked { opacity: 0.55; pointer-events: none; }
+  .step.locked .step-number { background: #9ca3af; }
+  .lock-msg { text-align: center; color: #6b7280; font-style: italic; font-size: 14px; padding: 14px; }
+
+  /* SUMMARY */
+  .summary-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-top: 20px;
+    display: none;
+  }
+  .summary-card.show { display: block; }
+  .summary-card h2 { color: #1F4E79; margin-bottom: 16px; font-size: 22px; }
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 14px 0;
+  }
+  .summary-item { background: #f0f4f9; padding: 12px 16px; border-radius: 8px; text-align: center; }
+  .summary-item .label { font-size: 12px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
+  .summary-item .value { font-size: 22px; font-weight: 700; color: #1F4E79; margin-top: 4px; }
+  .summary-total {
+    background: linear-gradient(135deg, #1F4E79, #548235);
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 12px;
+  }
+  .summary-total .total-num { font-size: 42px; font-weight: 700; }
+
+  /* ACTION BAR */
+  .action-bar {
+    background: white;
+    padding: 12px 16px;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    font-size: 13px;
+  }
+  .progress-mini { color: #6b7280; }
+  .progress-mini strong { color: #1F4E79; }
+
+  @media print {
+    body { background: white; }
+    .tabs, .action-bar, .btn, .instructions, .audio-wrap, .transcript-toggle { display: none !important; }
+    .listening-card { display: block !important; page-break-after: always; box-shadow: none; }
+    .step.locked { opacity: 1; pointer-events: auto; }
+    .feedback, .transcript { display: block !important; }
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 12px 10px 40px; }
+    header.main { padding: 22px 18px; }
+    header.main h1 { font-size: 22px; }
+    .listening-header, .step { padding: 16px; }
+    .tab-btn { font-size: 12px; padding: 9px 10px; min-width: 100px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="main">
+    <h1>Listening Activities - English 11th</h1>
+    <div class="subtitle">Work Plan - Units 1 and 2</div>
+    <div class="student-info">
+      <span><strong>Student:</strong> Roberth Jair Rivera Vargas</span>
+      <span><strong>Section:</strong> 11-1</span>
+      <span><strong>School:</strong> Colegio Nocturno de Cariari</span>
+    </div>
+  </header>
+
+  <div class="instructions">
+    <h3>General Instructions</h3>
+    <p><strong>Step 1 - Listen to the audio:</strong> Listen to the whole audio once. Do not worry about every word. Try to understand the general idea: who is speaking and what the topic is.</p>
+    <p><strong>Step 2 - Main idea question:</strong> Answer one question about the general idea of the audio.</p>
+    <p><strong>Step 3 - Listen again:</strong> Listen to the audio a second time. This time, pay attention to specific information: names, numbers, places, times, and key details.</p>
+    <p><strong>Step 4 - Detail questions:</strong> Answer the questions about specific details. You can listen again as many times as you need.</p>
+    <p style="margin-top:8px;"><strong>Note:</strong> If you need extra help, you can open the transcript (the written text of the audio) under each player.</p>
+  </div>
+
+  <div class="action-bar">
+    <div class="progress-mini">
+      Listenings completed: <strong id="progress-text">0 / 4</strong>
+    </div>
+    <div>
+      <button class="btn btn-secondary" onclick="window.print()">Print</button>
+      <button class="btn btn-secondary" onclick="resetAll()">Reset all</button>
+    </div>
+  </div>
+
+  <div class="tabs" id="tabs"></div>
+  <div id="listenings-container"></div>
+
+  <div class="summary-card" id="summary">
+    <h2>Final Result</h2>
+    <p style="margin-bottom:14px;">Here is the summary of your performance in the four listening activities. Please share this result with your teacher.</p>
+    <div class="summary-grid" id="summary-grid"></div>
+    <div class="summary-total">
+      <div class="label" style="font-size:12px;text-transform:uppercase;letter-spacing:0.5px;opacity:0.9;">Total score</div>
+      <div class="total-num" id="total-num">0 / 0</div>
+      <div id="total-msg" style="margin-top:8px;font-style:italic;font-size:14px;"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const LISTENINGS = [
+  // ---------- LISTENING 1 - audio1.mp3 - UNIT 2 ----------
+  {
+    id: 1, unit: 2, audio: "audio1.mp3",
+    title: "A Conversation About Health and Exercise",
+    transcript: [
+      ["Man", "Honey, the basketball game's about to start. And could you bring some chips and a bowl of ice cream? And... uh... a slice of pizza from the fridge."],
+      ["Woman", "Anything else?"],
+      ["Man", "Nope, that's all for now. Hey, hon, you know, they're organizing a company basketball team, and I'm thinking about joining. What do you think?"],
+      ["Woman", "Humph."],
+      ["Man", "\"Humph\"? What do you mean \"Humph\"? I was the star player in high school."],
+      ["Woman", "Yeah, twenty-five years ago. Look, I just don't want you having a heart attack running up and down the court."],
+      ["Man", "So, what are you suggesting? Should I just abandon the idea? I'm not that out of shape."],
+      ["Woman", "Well... you ought to at least have a physical before you begin. I mean, it has been at least five years since you played at all."],
+      ["Man", "Well, okay, but..."],
+      ["Woman", "And you need to watch your diet and cut back on the fatty foods, like ice cream. And you should try eating more fresh fruits and vegetables."],
+      ["Man", "Yeah, you're probably right."],
+      ["Woman", "And you should take up a little weight training to strengthen your muscles or perhaps try cycling to build up your cardiovascular system. Oh, and you need to go to bed early instead of watching TV half the night."],
+      ["Man", "Hey, you're starting to sound like my personal fitness instructor!"],
+      ["Woman", "Nah, I just love you, and I want you to be around for a long, long time."]
+    ],
+    vocab: [
+      ["out of shape", "not physically fit"],
+      ["have a physical", "have a medical check-up"],
+      ["cut back on", "reduce the amount of something"],
+      ["fatty foods", "food with a lot of fat"],
+      ["weight training", "exercise using weights to build muscle"],
+      ["cardiovascular system", "the heart and blood vessels"]
+    ],
+    mainIdea: {
+      question: "What is the conversation MAINLY about?",
+      options: [
+        "A man who wants to watch a basketball game on TV.",
+        "A woman giving advice to her husband about getting healthy before playing basketball.",
+        "A couple deciding what food to order for dinner.",
+        "A man who wants to become a professional basketball player."
+      ],
+      correct: 1,
+      explanation: "The main point is the woman's advice about health (a check-up, diet, exercise, sleep) before the man joins the basketball team."
+    },
+    details: [
+      {
+        question: "What does the man ask the woman to bring at the beginning?",
+        options: [
+          "Fruits and vegetables.",
+          "Chips, ice cream, and a slice of pizza.",
+          "Water and a salad.",
+          "Coffee and a sandwich."
+        ],
+        correct: 1,
+        explanation: "He asks for chips, a bowl of ice cream, and a slice of pizza from the fridge."
+      },
+      {
+        question: "According to the woman, how long has it been since the man last played?",
+        options: [
+          "Two years.",
+          "At least five years.",
+          "Ten years.",
+          "Twenty-five years."
+        ],
+        correct: 1,
+        explanation: "She says: \"it has been at least five years since you played at all.\" (He was the star player twenty-five years ago, but he last played five years ago.)"
+      },
+      {
+        question: "What does the woman recommend instead of fatty foods?",
+        options: [
+          "More ice cream.",
+          "More pizza.",
+          "Fresh fruits and vegetables.",
+          "Energy drinks."
+        ],
+        correct: 2,
+        explanation: "She says he should try eating more fresh fruits and vegetables."
+      },
+      {
+        question: "What does the woman suggest to build up his cardiovascular system?",
+        options: [
+          "Swimming.",
+          "Running every morning.",
+          "Cycling.",
+          "Playing basketball more often."
+        ],
+        correct: 2,
+        explanation: "She suggests weight training to strengthen muscles, or cycling to build up his cardiovascular system."
+      }
+    ]
+  },
+
+  // ---------- LISTENING 2 - audio2.mp3 - UNIT 2 ----------
+  {
+    id: 2, unit: 2, audio: "audio2.mp3",
+    title: "A Successful Athlete I Admire",
+    transcript: [
+      ["", "A successful athlete I admire is Cristiano Ronaldo. He is one of the most famous soccer players in the world, and he has become successful because of his discipline, healthy lifestyle, and hard work. He is a great example of how dedication can help someone achieve their goals."],
+      ["", "Cristiano Ronaldo takes care of his body every day. He follows a strict training routine and exercises for many hours. He practices soccer, goes to the gym, and works on his speed, strength, and endurance. Even after becoming famous, he continues training hard because he always wants to improve. He believes that success comes from effort and consistency."]
+    ],
+    vocab: [
+      ["athlete", "a person who is good at sports"],
+      ["discipline", "the ability to control yourself and work hard"],
+      ["strict routine", "a fixed set of activities followed exactly"],
+      ["endurance", "the ability to keep doing something for a long time"],
+      ["effort", "the energy you use to do something"],
+      ["consistency", "doing something the same way over time"]
+    ],
+    mainIdea: {
+      question: "What is the speaker MAINLY talking about?",
+      options: [
+        "The history of soccer in the world.",
+        "Why soccer is better than other sports.",
+        "A successful athlete the speaker admires and the reasons for his success.",
+        "How to become a famous soccer player."
+      ],
+      correct: 2,
+      explanation: "The speaker describes Cristiano Ronaldo and explains why he admires him: discipline, healthy lifestyle, and hard work."
+    },
+    details: [
+      {
+        question: "Which athlete does the speaker admire?",
+        options: [
+          "Lionel Messi.",
+          "Cristiano Ronaldo.",
+          "Keylor Navas.",
+          "LeBron James."
+        ],
+        correct: 1,
+        explanation: "The speaker says: \"A successful athlete I admire is Cristiano Ronaldo.\""
+      },
+      {
+        question: "According to the speaker, why has Ronaldo become successful?",
+        options: [
+          "Because of his discipline, healthy lifestyle, and hard work.",
+          "Because he is naturally talented and lucky.",
+          "Because he has expensive trainers.",
+          "Because he started playing as a small child."
+        ],
+        correct: 0,
+        explanation: "The speaker says he became successful \"because of his discipline, healthy lifestyle, and hard work.\""
+      },
+      {
+        question: "What does Ronaldo do to take care of his body?",
+        options: [
+          "He only plays soccer on weekends.",
+          "He follows a strict training routine and exercises for many hours.",
+          "He rests most of the week.",
+          "He follows a special diet but does not exercise."
+        ],
+        correct: 1,
+        explanation: "The speaker says he follows a strict training routine and exercises for many hours."
+      },
+      {
+        question: "According to the speaker, where does success come from?",
+        options: [
+          "From money and fame.",
+          "From talent only.",
+          "From effort and consistency.",
+          "From having famous friends."
+        ],
+        correct: 2,
+        explanation: "The speaker says: \"He believes that success comes from effort and consistency.\""
+      }
+    ]
+  },
+
+  // ---------- LISTENING 3 - audio3.mp3 - UNIT 1 ----------
+  {
+    id: 3, unit: 1, audio: "audio3.mp3",
+    title: "Making Plans: The Technology Festival",
+    transcript: [
+      ["", "You will hear Matt talking to his friend Sara about a technology festival."],
+      ["Matt", "Hi, Sara. Would you like to go to the Technology Festival with Amelia and me on Sunday?"],
+      ["Sara", "Yes! I love computers. Is it in the shopping centre near the station?"],
+      ["Matt", "Not this year. It's in the library. You know they've got three big rooms."],
+      ["Sara", "That's good. It's not far from my house. What's in the festival? Have they got any robots?"],
+      ["Matt", "Yes, my dad says there are robots that walk and talk."],
+      ["Sara", "Wow! I saw an amazing robot online. It can clean the house and make food."],
+      ["Matt", "But robots can't do your homework for you!"],
+      ["Sara", "I know. I'd like a robot to do my English homework! Let's go to the festival. How much will it cost? It was 8 pounds last year."],
+      ["Matt", "Last year it was only 6 pounds, Sara. This year it's 10 pounds."],
+      ["Sara", "Can we buy things at the festival?"],
+      ["Matt", "I think so. I'd like a new camera, but I haven't got much money. I got a really good mouse last year."],
+      ["Sara", "I need a new mouse. What about computer games? Do you want a new computer game?"],
+      ["Matt", "Not now. My mum bought me one for my birthday."],
+      ["Sara", "OK. So, when shall we meet?"],
+      ["Matt", "Well, the festival starts at 11 o'clock, so let's meet outside your house at a quarter to eleven and walk there together. Amelia is coming later, at about 12 o'clock, because she has tennis lessons in the morning."]
+    ],
+    vocab: [
+      ["festival", "a special event or celebration"],
+      ["shopping centre", "a building with many shops"],
+      ["a quarter to eleven", "10:45"],
+      ["cost", "the amount of money you pay"],
+      ["mouse", "a device used to control a computer"],
+      ["meet", "to come together with someone"]
+    ],
+    mainIdea: {
+      question: "What are Matt and Sara MAINLY talking about?",
+      options: [
+        "Doing their English homework together.",
+        "Buying a new computer at the shopping centre.",
+        "Their plans to go to a technology festival.",
+        "How to build a robot at home."
+      ],
+      correct: 2,
+      explanation: "The whole conversation is about their plans to go to the Technology Festival: where it is, the price, and when to meet."
+    },
+    details: [
+      {
+        question: "Where is the festival this year?",
+        options: [
+          "In the shopping centre near the station.",
+          "In the library.",
+          "At Sara's house.",
+          "At the school."
+        ],
+        correct: 1,
+        explanation: "Matt says: \"Not this year. It's in the library.\""
+      },
+      {
+        question: "How much does the festival cost this year?",
+        options: [
+          "6 pounds.",
+          "8 pounds.",
+          "10 pounds.",
+          "12 pounds."
+        ],
+        correct: 2,
+        explanation: "Matt says: \"This year it's 10 pounds.\" (Last year it was 6 pounds.)"
+      },
+      {
+        question: "What time will Matt and Sara meet?",
+        options: [
+          "At 11 o'clock.",
+          "At a quarter to eleven (10:45).",
+          "At 12 o'clock.",
+          "At a quarter past eleven (11:15)."
+        ],
+        correct: 1,
+        explanation: "Matt says: \"let's meet outside your house at a quarter to eleven.\" (The festival starts at 11.)"
+      },
+      {
+        question: "Why is Amelia coming later, at about 12 o'clock?",
+        options: [
+          "Because she has tennis lessons in the morning.",
+          "Because she lives far away.",
+          "Because she has to do her homework.",
+          "Because she does not like robots."
+        ],
+        correct: 0,
+        explanation: "Matt says Amelia is coming later \"because she has tennis lessons in the morning.\""
+      }
+    ]
+  },
+
+  // ---------- LISTENING 4 - audio4.mp3 - UNIT 2 ----------
+  {
+    id: 4, unit: 2, audio: "audio4.mp3",
+    title: "Artificial Intelligence and Daily Life",
+    transcript: [
+      ["", "Artificial intelligence is becoming part of daily life, and many people use it for work, school, and personal tasks. While AI can be useful, it is also making some people lazy because they depend on it too much instead of thinking for themselves."],
+      ["", "Today, many students use AI to complete assignments, answer questions, or write essays. Instead of reading books or researching, they ask AI to do everything for them. This can make learning more difficult because students may stop developing important skills like critical thinking, problem-solving, and creativity. If people rely on AI all the time, they may forget how to do tasks on their own."],
+      ["", "AI is also changing how people work. Some workers use AI to write emails, organize information, or make decisions. While this saves time, some people become less active and less independent. They may stop making an effort to learn new skills because they expect technology to solve every problem. This dependence can reduce productivity and personal growth in the long term."],
+      ["", "Another problem is that AI makes many tasks too easy. People can ask it to create plans, answer questions, translate texts, or even give ideas. Because of this, some people stop trying to think deeply. They may choose the easiest solution instead of learning through experience. Over time, this can affect memory, concentration, and the ability to make decisions."],
+      ["", "AI is a powerful tool, but it should support people, not replace their effort. Technology can help us learn faster, but it should not make us stop thinking. People need to use AI responsibly and continue developing their own abilities. If we become too dependent on it, we may lose important skills and become less active in our daily lives."]
+    ],
+    vocab: [
+      ["artificial intelligence (AI)", "computer systems that can do tasks that usually need human thinking"],
+      ["lazy", "not wanting to work or make an effort"],
+      ["rely on / depend on", "to need something or someone for support"],
+      ["critical thinking", "thinking carefully to judge ideas"],
+      ["productivity", "how much work a person gets done"],
+      ["responsibly", "in a sensible and careful way"]
+    ],
+    mainIdea: {
+      question: "What is the MAIN message of the audio?",
+      options: [
+        "AI should be used for all school and work tasks.",
+        "AI is useful, but depending on it too much can make people lazy and reduce important skills.",
+        "AI will soon replace all human jobs.",
+        "Students should never use technology to study."
+      ],
+      correct: 1,
+      explanation: "The audio explains that AI can be useful but warns that depending on it too much makes people lazy and can reduce skills like critical thinking and creativity."
+    },
+    details: [
+      {
+        question: "According to the audio, how do many students use AI today?",
+        options: [
+          "To read more books and research deeply.",
+          "To complete assignments, answer questions, or write essays.",
+          "To avoid using computers.",
+          "To teach their classmates."
+        ],
+        correct: 1,
+        explanation: "The audio says many students use AI \"to complete assignments, answer questions, or write essays.\""
+      },
+      {
+        question: "Which skills might students stop developing if they rely on AI too much?",
+        options: [
+          "Running, jumping, and swimming.",
+          "Critical thinking, problem-solving, and creativity.",
+          "Reading and writing only.",
+          "Cooking and cleaning."
+        ],
+        correct: 1,
+        explanation: "The audio mentions \"critical thinking, problem-solving, and creativity.\""
+      },
+      {
+        question: "According to the audio, what can too much dependence on AI affect over time?",
+        options: [
+          "Memory, concentration, and the ability to make decisions.",
+          "Eyesight and hearing.",
+          "Height and weight.",
+          "The price of technology."
+        ],
+        correct: 0,
+        explanation: "The audio says it \"can affect memory, concentration, and the ability to make decisions.\""
+      },
+      {
+        question: "What is the speaker's final recommendation about AI?",
+        options: [
+          "People should stop using AI completely.",
+          "AI should replace human effort.",
+          "People should use AI responsibly and continue developing their own abilities.",
+          "Only workers should use AI, not students."
+        ],
+        correct: 2,
+        explanation: "The audio concludes that people \"need to use AI responsibly and continue developing their own abilities.\""
+      }
+    ]
+  }
+];
+
+// ============================================================
+// STATE
+// ============================================================
+const state = { current: 1, answers: {} };
+LISTENINGS.forEach(l => state.answers[l.id] = { mainIdea: null, details: {}, mainIdeaChecked: false, detailsChecked: false });
+
+try {
+  const saved = localStorage.getItem('listening_state_roberth');
+  if (saved) Object.assign(state, JSON.parse(saved));
+} catch (e) {}
+
+function saveState() {
+  try { localStorage.setItem('listening_state_roberth', JSON.stringify(state)); } catch (e) {}
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function renderTabs() {
+  const tabs = document.getElementById('tabs');
+  tabs.innerHTML = '';
+  LISTENINGS.forEach(l => {
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn' + (state.current === l.id ? ' active' : '');
+    if (isComplete(l.id)) btn.classList.add('completed');
+    btn.textContent = `Listening ${l.id} - Unit ${l.unit}`;
+    btn.onclick = () => { state.current = l.id; render(); window.scrollTo({top:0,behavior:'smooth'}); };
+    tabs.appendChild(btn);
+  });
+}
+
+function isComplete(id) {
+  const a = state.answers[id];
+  return a.mainIdeaChecked && a.detailsChecked;
+}
+
+function renderListenings() {
+  const container = document.getElementById('listenings-container');
+  container.innerHTML = '';
+  LISTENINGS.forEach(l => {
+    const card = document.createElement('div');
+    card.className = 'listening-card' + (state.current === l.id ? ' active' : '');
+    const ans = state.answers[l.id];
+    const detailsUnlocked = ans.mainIdeaChecked;
+
+    card.innerHTML = `
+      <div class="listening-header">
+        <div class="unit-badge unit-${l.unit}">Unit ${l.unit}</div>
+        <h2>Listening ${l.id} - ${l.title}</h2>
+      </div>
+
+      <!-- STEP 1: LISTEN -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">1</div>
+          <div class="step-title">Listen to the audio</div>
+        </div>
+        <div class="tip-box">
+          <strong>Tip:</strong> Listen to the whole audio once. Do not worry about every word. Try to understand the <strong>general idea</strong>: who is speaking and what the topic is.
+        </div>
+        <div class="audio-wrap">
+          <audio controls preload="none" onerror="showAudioMissing(${l.id})">
+            <source src="${l.audio}" type="audio/mpeg">
+            Your browser does not support the audio player.
+          </audio>
+          <div class="audio-note">Audio file: ${l.audio}</div>
+          <div class="audio-missing" id="audio-missing-${l.id}">
+            The audio file was not found. Make sure <strong>${l.audio}</strong> is in the same folder as this page.
+          </div>
+          <button class="transcript-toggle" onclick="toggleTranscript(${l.id})" id="tr-btn-${l.id}">Show transcript</button>
+          <div class="transcript" id="transcript-${l.id}">
+            ${l.transcript.map(([sp, txt]) => `<p>${sp ? `<span class="speaker">${escapeHtml(sp)}:</span> ` : ''}${escapeHtml(txt)}</p>`).join('')}
+          </div>
+        </div>
+        <div class="vocab-help">
+          <strong>Vocabulary help:</strong><br>
+          ${l.vocab.map(([en, def]) => `<span class="vword"><b>${en}</b>: ${def}</span>`).join('')}
+        </div>
+      </div>
+
+      <!-- STEP 2: MAIN IDEA -->
+      <div class="step">
+        <div class="step-header">
+          <div class="step-number">2</div>
+          <div class="step-title">Main idea question</div>
+        </div>
+        <div class="question" id="main-q-${l.id}">
+          <div class="question-text">${escapeHtml(l.mainIdea.question)}</div>
+          <div class="options">
+            ${l.mainIdea.options.map((opt, i) => `
+              <label class="option" data-i="${i}" onclick="selectMain(${l.id}, ${i})">
+                <input type="radio" name="main-${l.id}" ${ans.mainIdea === i ? 'checked' : ''}>
+                <span>${String.fromCharCode(65+i)}) ${escapeHtml(opt)}</span>
+              </label>
+            `).join('')}
+          </div>
+          <div class="btn-row">
+            <button class="btn btn-primary" id="check-main-${l.id}" onclick="checkMain(${l.id})" ${ans.mainIdeaChecked ? 'disabled' : ''}>
+              ${ans.mainIdeaChecked ? 'Answer submitted' : 'Check answer'}
+            </button>
+          </div>
+          <div class="feedback" id="main-fb-${l.id}"></div>
+        </div>
+      </div>
+
+      <!-- STEP 3: LISTEN AGAIN -->
+      <div class="step ${detailsUnlocked ? '' : 'locked'}">
+        <div class="step-header">
+          <div class="step-number ${detailsUnlocked ? '' : 'locked'}">3</div>
+          <div class="step-title">Listen to the audio again</div>
+        </div>
+        ${!detailsUnlocked ? '<div class="lock-msg">Answer the main idea question first to unlock this section.</div>' : `
+        <div class="tip-box purple">
+          <strong>Tip:</strong> Listen a second time. Pay attention to <strong>specific information</strong>: names, numbers, places, times, and key details. You can use the player above and listen as many times as you need.
+        </div>`}
+      </div>
+
+      <!-- STEP 4: DETAILS -->
+      <div class="step ${detailsUnlocked ? '' : 'locked'}">
+        <div class="step-header">
+          <div class="step-number ${detailsUnlocked ? '' : 'locked'}">4</div>
+          <div class="step-title">Detail questions</div>
+        </div>
+        ${!detailsUnlocked ? '<div class="lock-msg">This section unlocks after step 2.</div>' : `
+          ${l.details.map((q, qi) => `
+            <div class="question" id="detail-q-${l.id}-${qi}">
+              <div class="question-text"><span class="qnum">${qi+1}</span>${escapeHtml(q.question)}</div>
+              <div class="options">
+                ${q.options.map((opt, i) => `
+                  <label class="option" data-i="${i}" onclick="selectDetail(${l.id}, ${qi}, ${i})">
+                    <input type="radio" name="detail-${l.id}-${qi}" ${ans.details[qi] === i ? 'checked' : ''}>
+                    <span>${String.fromCharCode(65+i)}) ${escapeHtml(opt)}</span>
+                  </label>
+                `).join('')}
+              </div>
+              <div class="feedback" id="detail-fb-${l.id}-${qi}"></div>
+            </div>
+          `).join('')}
+          <div class="btn-row">
+            <button class="btn btn-primary" id="check-detail-${l.id}" onclick="checkDetails(${l.id})" ${ans.detailsChecked ? 'disabled' : ''}>
+              ${ans.detailsChecked ? 'Answers submitted' : 'Check all answers'}
+            </button>
+          </div>
+          <div class="score-display" id="score-${l.id}"></div>
+        `}
+      </div>
+    `;
+    container.appendChild(card);
+
+    if (ans.mainIdeaChecked) showMainFeedback(l.id);
+    if (ans.detailsChecked) showDetailFeedback(l.id);
+  });
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function toggleTranscript(id) {
+  const tr = document.getElementById(`transcript-${id}`);
+  const btn = document.getElementById(`tr-btn-${id}`);
+  tr.classList.toggle('show');
+  btn.textContent = tr.classList.contains('show') ? 'Hide transcript' : 'Show transcript';
+}
+
+function showAudioMissing(id) {
+  const el = document.getElementById(`audio-missing-${id}`);
+  if (el) el.style.display = 'block';
+}
+
+function updateProgress() {
+  const done = LISTENINGS.filter(l => isComplete(l.id)).length;
+  document.getElementById('progress-text').textContent = `${done} / ${LISTENINGS.length}`;
+  if (done === LISTENINGS.length) showSummary();
+}
+
+function render() {
+  renderTabs();
+  renderListenings();
+  updateProgress();
+  saveState();
+}
+
+// ============================================================
+// INTERACTIONS
+// ============================================================
+function selectMain(id, i) {
+  if (state.answers[id].mainIdeaChecked) return;
+  state.answers[id].mainIdea = i;
+  document.querySelectorAll(`input[name="main-${id}"]`).forEach((r, idx) => r.checked = idx === i);
+  document.querySelectorAll(`#main-q-${id} .option`).forEach((opt, idx) => opt.classList.toggle('selected', idx === i));
+  saveState();
+}
+
+function checkMain(id) {
+  const ans = state.answers[id];
+  if (ans.mainIdea === null) { alert("Please select an option before checking."); return; }
+  ans.mainIdeaChecked = true;
+  showMainFeedback(id);
+  saveState();
+  render();
+}
+
+function showMainFeedback(id) {
+  const l = LISTENINGS.find(x => x.id === id);
+  const ans = state.answers[id];
+  const correct = l.mainIdea.correct;
+  const fb = document.getElementById(`main-fb-${id}`);
+  document.querySelectorAll(`#main-q-${id} .option`).forEach((o, i) => {
+    o.classList.remove('selected', 'correct', 'incorrect');
+    if (i === correct) o.classList.add('correct');
+    else if (i === ans.mainIdea) o.classList.add('incorrect');
+    o.style.pointerEvents = 'none';
+  });
+  const isRight = ans.mainIdea === correct;
+  if (fb) {
+    fb.className = 'feedback show ' + (isRight ? 'correct' : 'incorrect');
+    fb.innerHTML = `<strong>${isRight ? 'Correct!' : 'Incorrect'}</strong>${escapeHtml(l.mainIdea.explanation)}${!isRight ? `<br><br><em>Correct answer: ${String.fromCharCode(65+correct)}) ${escapeHtml(l.mainIdea.options[correct])}</em>` : ''}`;
+  }
+  const btn = document.getElementById(`check-main-${id}`);
+  if (btn) { btn.disabled = true; btn.textContent = 'Answer submitted'; }
+}
+
+function selectDetail(id, qi, i) {
+  if (state.answers[id].detailsChecked) return;
+  state.answers[id].details[qi] = i;
+  document.querySelectorAll(`input[name="detail-${id}-${qi}"]`).forEach((r, idx) => r.checked = idx === i);
+  document.querySelectorAll(`#detail-q-${id}-${qi} .option`).forEach((opt, idx) => opt.classList.toggle('selected', idx === i));
+  saveState();
+}
+
+function checkDetails(id) {
+  const l = LISTENINGS.find(x => x.id === id);
+  const ans = state.answers[id];
+  const unanswered = l.details.filter((_, qi) => ans.details[qi] === undefined || ans.details[qi] === null).length;
+  if (unanswered > 0) {
+    if (!confirm(`There are still ${unanswered} unanswered question(s). Do you want to check anyway?`)) return;
+  }
+  ans.detailsChecked = true;
+  showDetailFeedback(id);
+  saveState();
+  render();
+}
+
+function showDetailFeedback(id) {
+  const l = LISTENINGS.find(x => x.id === id);
+  const ans = state.answers[id];
+  let correct = 0;
+  l.details.forEach((q, qi) => {
+    const fb = document.getElementById(`detail-fb-${id}-${qi}`);
+    const userAns = ans.details[qi];
+    document.querySelectorAll(`#detail-q-${id}-${qi} .option`).forEach((o, i) => {
+      o.classList.remove('selected', 'correct', 'incorrect');
+      if (i === q.correct) o.classList.add('correct');
+      else if (i === userAns) o.classList.add('incorrect');
+      o.style.pointerEvents = 'none';
+    });
+    const isRight = userAns === q.correct;
+    if (isRight) correct++;
+    if (fb) {
+      fb.className = 'feedback show ' + (isRight ? 'correct' : 'incorrect');
+      fb.innerHTML = `<strong>${isRight ? 'Correct!' : (userAns === undefined ? 'No answer' : 'Incorrect')}</strong>${escapeHtml(q.explanation)}`;
+    }
+  });
+  const total = l.details.length;
+  const pct = Math.round((correct / total) * 100);
+  const scoreDiv = document.getElementById(`score-${id}`);
+  if (scoreDiv) {
+    scoreDiv.classList.add('show');
+    let msg = "";
+    if (pct === 100) msg = "Excellent! Perfect score.";
+    else if (pct >= 75) msg = "Very good! Solid understanding of the details.";
+    else if (pct >= 50) msg = "Good. Listen again and focus on key words.";
+    else msg = "Listen to the audio more carefully and try again.";
+    scoreDiv.innerHTML = `<div class="score-label">Score</div><div class="score-number">${correct} / ${total}</div><div class="score-label">${pct}%</div><div class="score-msg">${msg}</div>`;
+  }
+  const btn = document.getElementById(`check-detail-${id}`);
+  if (btn) { btn.disabled = true; btn.textContent = 'Answers submitted'; }
+}
+
+function showSummary() {
+  const summary = document.getElementById('summary');
+  summary.classList.add('show');
+  const grid = document.getElementById('summary-grid');
+  let totalCorrect = 0, totalQuestions = 0, html = '';
+  LISTENINGS.forEach(l => {
+    const ans = state.answers[l.id];
+    let c = 0, t = l.details.length + 1;
+    if (ans.mainIdea === l.mainIdea.correct) c++;
+    l.details.forEach((q, qi) => { if (ans.details[qi] === q.correct) c++; });
+    totalCorrect += c; totalQuestions += t;
+    html += `<div class="summary-item"><div class="label">Listening ${l.id} - Unit ${l.unit}</div><div class="value">${c} / ${t}</div></div>`;
+  });
+  grid.innerHTML = html;
+  const pct = Math.round((totalCorrect / totalQuestions) * 100);
+  document.getElementById('total-num').textContent = `${totalCorrect} / ${totalQuestions} (${pct}%)`;
+  let msg = "";
+  if (pct >= 90) msg = "Outstanding performance. Congratulations!";
+  else if (pct >= 80) msg = "Very good performance. Keep practicing.";
+  else if (pct >= 70) msg = "Good performance. Review the audios where you missed questions.";
+  else if (pct >= 60) msg = "Acceptable performance. Practice listening more often.";
+  else msg = "More practice is needed. Please coordinate with your teacher.";
+  document.getElementById('total-msg').textContent = msg;
+}
+
+function resetAll() {
+  if (!confirm("Are you sure you want to reset ALL listening activities? Your progress will be lost.")) return;
+  LISTENINGS.forEach(l => state.answers[l.id] = { mainIdea: null, details: {}, mainIdeaChecked: false, detailsChecked: false });
+  state.current = 1;
+  saveState();
+  document.getElementById('summary').classList.remove('show');
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+render();
+</script>
+</body>
+</html>
