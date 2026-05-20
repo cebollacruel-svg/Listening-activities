@@ -361,7 +361,6 @@
     <p><strong>Step 2 - Main idea question:</strong> Answer one question about the general idea of the audio.</p>
     <p><strong>Step 3 - Listen again:</strong> Listen to the audio a second time. This time, pay attention to specific information: names, numbers, places, times, and key details.</p>
     <p><strong>Step 4 - Detail questions:</strong> Answer the questions about specific details. You can listen again as many times as you need.</p>
-    <p style="margin-top:8px;"><strong>Note:</strong> If you need extra help, you can open the transcript (the written text of the audio) under each player.</p>
   </div>
 
   <div class="action-bar">
@@ -779,9 +778,6 @@ function renderListenings() {
           <div class="step-number">1</div>
           <div class="step-title">Listen to the audio</div>
         </div>
-        <div class="tip-box">
-          <strong>Tip:</strong> Listen to the whole audio once. Do not worry about every word. Try to understand the <strong>general idea</strong>: who is speaking and what the topic is.
-        </div>
         <div class="audio-wrap">
           <audio controls preload="none" onerror="showAudioMissing(${l.id})">
             <source src="${l.audio}" type="audio/mpeg">
@@ -790,10 +786,6 @@ function renderListenings() {
           <div class="audio-note">Audio file: ${l.audio}</div>
           <div class="audio-missing" id="audio-missing-${l.id}">
             The audio file was not found. Make sure <strong>${l.audio}</strong> is in the same folder as this page.
-          </div>
-          <button class="transcript-toggle" onclick="toggleTranscript(${l.id})" id="tr-btn-${l.id}">Show transcript</button>
-          <div class="transcript" id="transcript-${l.id}">
-            ${l.transcript.map(([sp, txt]) => `<p>${sp ? `<span class="speaker">${escapeHtml(sp)}:</span> ` : ''}${escapeHtml(txt)}</p>`).join('')}
           </div>
         </div>
         <div class="vocab-help">
@@ -833,10 +825,7 @@ function renderListenings() {
           <div class="step-number ${detailsUnlocked ? '' : 'locked'}">3</div>
           <div class="step-title">Listen to the audio again</div>
         </div>
-        ${!detailsUnlocked ? '<div class="lock-msg">Answer the main idea question first to unlock this section.</div>' : `
-        <div class="tip-box purple">
-          <strong>Tip:</strong> Listen a second time. Pay attention to <strong>specific information</strong>: names, numbers, places, times, and key details. You can use the player above and listen as many times as you need.
-        </div>`}
+        ${!detailsUnlocked ? '<div class="lock-msg">Answer the main idea question first to unlock this section.</div>' : ''}
       </div>
 
       <!-- STEP 4: DETAILS -->
@@ -878,13 +867,6 @@ function renderListenings() {
 
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-function toggleTranscript(id) {
-  const tr = document.getElementById(`transcript-${id}`);
-  const btn = document.getElementById(`tr-btn-${id}`);
-  tr.classList.toggle('show');
-  btn.textContent = tr.classList.contains('show') ? 'Hide transcript' : 'Show transcript';
 }
 
 function showAudioMissing(id) {
